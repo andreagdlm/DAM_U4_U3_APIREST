@@ -20,6 +20,12 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Middleware para deshabilitar la caché
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+  });
+
 //Routes
 const api = config.API_URL;
 app.get(`${api}`, (req,res)=>{
